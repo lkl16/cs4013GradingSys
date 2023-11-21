@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-
 /**
  * Module Class
  *
@@ -14,12 +13,13 @@ import java.io.FileWriter;
 public class Module
 {
     private String moduleName;
-    private ArrayList<Person> classList;
+    private ArrayList<Student> classList;
+    private ArrayList<Faculty> staffList;
     public Module(String name)
     {
         this.moduleName=name;
-        classList=new ArrayList<Person>();
+        classList=new ArrayList<Student>();
+        staffList=new ArrayList<Faculty>();
     }
-    
     
 }
