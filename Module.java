@@ -38,6 +38,8 @@ public class Module
         }
         else return -1.0;
     }
+    /*
+     //for testing purposes
     public double getStudentGrade(int ID){
         for(Student i:classList){
             if(i.getId() == ID){
@@ -46,6 +48,7 @@ public class Module
         }
         return -1.0;
     }
+    */
     public String getStudentTranscript(Student student){
         String myEntry = student.getEntry(moduleName);
         if(myEntry != null&&!myEntry.equals("Err: Couldn't get Student ID")){ 

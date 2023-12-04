@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author (Liam Kelly,22346317)
  * @version v7
  */
-class gradingSystem {
+class GradingSystem {
     private ArrayList<Department> departments;
     private ArrayList<Program> programs;
     private ArrayList<Module> modules;
@@ -15,7 +15,7 @@ class gradingSystem {
     private boolean admin = false;
     private boolean staff = false;
     private boolean student = false;
-    public gradingSystem(){
+    public GradingSystem(){
         programs = new ArrayList<Program>();
         modules = new ArrayList<Module>();
         students= new ArrayList<Student>();
@@ -52,7 +52,7 @@ class gradingSystem {
             System.out.println("Invalid");
             logIn();
         }
-        
+
     }
 
     private void checkUser(){
@@ -199,22 +199,45 @@ class gradingSystem {
         myScanner.close();  
     }
 
+    private Department selectDepartment(){
+        Scanner myScanner = new Scanner (System.in);
+        System.out.println("Select a department to put program in ");
+        int j = 1;
+        for(Department i:departments){
+            System.out.printf("%s) %s\n",""+j,i.getName());
+            j++;
+        }
+        int departmentChosen = myScanner.nextInt();
+        myScanner.nextLine();
+
+        Department department = departments.get(departmentChosen-1);
+        myScanner.close();
+        return department;
+    }
+
+    private Program selectProgram(Department department){
+        Scanner myScanner = new Scanner (System.in);
+        System.out.println("Select a program: ");
+        int j = 1;
+        for(Program i: department.getPrograms()){
+
+            System.out.printf("%s) %s\n",""+j,i.getName());
+            j++;
+        }
+        int programChosen = myScanner.nextInt();
+        myScanner.nextLine();
+        Program program = department.getPrograms().get(programChosen-1);
+        myScanner.close();
+        return program;
+    }
+
     private void createProgram(){
         if(departments.isEmpty()){
             System.out.println("First, make a department");
         }
         else{
+            Department department=selectDepartment();
             Scanner myScanner = new Scanner(System.in);  // Create a Scanner object
-            System.out.println("Select a department to put program in ");
-            int j = 1;
-            for(Department i:departments){
-                System.out.printf("%s) %s\n",""+j,i.getName());
-                j++;
-            }
-            int departmentChosen = myScanner.nextInt();
-            myScanner.nextLine();
-            
-            Department department = departments.get(departmentChosen-1);
 
             System.out.printf("\nTo make our program, please enter:\n");
             System.out.print("Program name: ");
@@ -223,7 +246,7 @@ class gradingSystem {
             int duration= myScanner.nextInt();
             myScanner.nextLine();
             System.out.print("Program code: ");
-            
+
             String code= myScanner.nextLine();
             System.out.print("Program level: ");
             String level= myScanner.nextLine();
@@ -251,26 +274,9 @@ class gradingSystem {
                 System.out.println("First, make a program");
             }
             else{
+                Department department=selectDepartment();
+                Program program = selectProgram(department);
                 Scanner myScanner = new Scanner(System.in);  // Create a Scanner object
-                System.out.println("Select a department: ");
-                int j = 1;
-                for(Department i:departments){
-                    System.out.printf("%s) %s\n",""+j,i.getName());
-                    j++;
-                }
-                int departmentChosen = myScanner.nextInt();
-                myScanner.nextLine();
-                Department department = departments.get(departmentChosen-1);
-                System.out.println("Select a program: ");
-                j = 1;
-                for(Program i: department.getPrograms()){
-
-                    System.out.printf("%s) %s\n",""+j,i.getName());
-                    j++;
-                }
-                int programChosen = myScanner.nextInt();
-                myScanner.nextLine();
-                Program program = department.getPrograms().get(programChosen-1);
 
                 System.out.printf("\nTo make our module, please enter:\n");
                 System.out.print("Module name: ");
@@ -303,27 +309,10 @@ class gradingSystem {
                     System.out.println("First, make a module");
                 }
                 else{
+                    Department department=selectDepartment();
                     Scanner myScanner = new Scanner(System.in);  // Create a Scanner object
-                    System.out.println("Select student's department: ");
-                    int j = 1;
-                    for(Department i:departments){
 
-                        System.out.printf("%s) %s\n",""+j,i.getName());
-                        j++;
-                    }
-                    int departmentChosen = myScanner.nextInt();
-                    myScanner.nextLine();
-                    Department department = departments.get(departmentChosen-1);
-                    System.out.println("Select student's program: ");
-                    j = 1;
-                    for(Program i: department.getPrograms()){
-
-                        System.out.printf("%s) %s\n",""+j,i.getName());
-                        j++;
-                    }
-                    int programChosen = myScanner.nextInt();
-                    myScanner.nextLine();
-                    Program program = department.getPrograms().get(programChosen-1);
+                    Program program = selectProgram(department);
 
                     System.out.printf("\nTo make our Student, please enter:\n");
                     System.out.print("Student's first name: ");
@@ -352,7 +341,7 @@ class gradingSystem {
                     if(!students.contains(myStudent)){
                         students.add(myStudent);
                     }
-                    
+
                 }
             }
         }
@@ -377,7 +366,7 @@ class gradingSystem {
                 System.out.println("invalid");
             }
             else{
-                
+
                 moduleList.get(choice-1).addStudent(student);
             }
             System.out.print("Do you want to enroll the student in another module? (enter 'y' if you want to continue): ");
@@ -405,27 +394,10 @@ class gradingSystem {
                     System.out.println("First, make a module");
                 }
                 else{
+                    Department department=selectDepartment();
                     Scanner myScanner = new Scanner(System.in);  // Create a Scanner object
-                    System.out.println("Select staff's department: ");
-                    int j = 1;
-                    for(Department i:departments){
 
-                        System.out.printf("%s) %s\n",""+j,i.getName());
-                        j++;
-                    }
-                    int departmentChosen = myScanner.nextInt();
-                    myScanner.nextLine();
-                    Department department = departments.get(departmentChosen-1);
-                    System.out.println("Select staff's program: ");
-                    j = 1;
-                    for(Program i: department.getPrograms()){
-
-                        System.out.printf("%s) %s\n",""+j,i.getName());
-                        j++;
-                    }
-                    int programChosen = myScanner.nextInt();
-                    myScanner.nextLine();
-                    Program program = department.getPrograms().get(programChosen-1);
+                    Program program = selectProgram(department);
 
                     System.out.printf("\nTo make our Staff, please enter:\n");
                     System.out.print("Staff's first name: ");
@@ -515,30 +487,13 @@ class gradingSystem {
                 System.out.println("First, make a program");
             }
             else{
+                Department department=selectDepartment();
                 Scanner myScanner = new Scanner(System.in);  // Create a Scanner object
-                System.out.println("Select a department: ");
-                int j = 1;
-                for(Department i:departments){
 
-                    System.out.printf("%s) %s\n",""+j,i.getName());
-                    j++;
-                }
-                int departmentChosen = myScanner.nextInt();
-                myScanner.nextLine();
-                Department department = departments.get(departmentChosen-1);
                 outString=outString+String.format("In department %s, ",department.getName());
-                System.out.println("Select a program: ");
-                j=1;
-                for(Program i: department.getPrograms()){
-
-                    System.out.printf("%s) %s\n",""+j,i.getName());
-                    j++;
-                }
-                int programChosen = myScanner.nextInt();
-                myScanner.nextLine();
-                Program program = department.getPrograms().get(programChosen-1);
+                Program program = selectProgram(department);
                 outString=outString+String.format("In program %s, ",program.getName());
-                j=1;
+                int j=1;
                 for(Module i: program.getModuleList()){
                     outString=outString+String.format("%s) %s\n",""+j,i.getName());
                     j++;
@@ -559,30 +514,13 @@ class gradingSystem {
                 System.out.println("First, make a program");
             }
             else{
+                Department department=selectDepartment();
                 Scanner myScanner = new Scanner(System.in);  // Create a Scanner object
-                System.out.println("Select a department: ");
-                int j = 1;
-                for(Department i:departments){
 
-                    System.out.printf("%s) %s\n",""+j,i.getName());
-                    j++;
-                }
-                int departmentChosen = myScanner.nextInt();
-                myScanner.nextLine();
-                Department department = departments.get(departmentChosen-1);
                 outString=outString+String.format("In department %s, ",department.getName());
-                System.out.println("Select a program: ");
-                j=1;
-                for(Program i: department.getPrograms()){
-
-                    System.out.printf("%s) %s\n",""+j,i.getName());
-                    j++;
-                }
-                int programChosen = myScanner.nextInt();
-                myScanner.nextLine();
-                Program program = department.getPrograms().get(programChosen-1);
+                Program program = selectProgram(department);
                 outString=outString+String.format("In program %s, ",program.getName());
-                j=1;
+                int j=1;
                 for(Student i: program.getStudentList()){
                     outString=outString+String.format("%s) ID=%d, %s %s\n",""+j,i.getId(),i.getFirstName(),i.getLastName());
                     j++;
@@ -603,30 +541,13 @@ class gradingSystem {
                 System.out.println("First, make a program");
             }
             else{
+                Department department=selectDepartment();
                 Scanner myScanner = new Scanner(System.in);  // Create a Scanner object
-                System.out.println("Select a department: ");
-                int j = 1;
-                for(Department i:departments){
 
-                    System.out.printf("%s) %s\n",""+j,i.getName());
-                    j++;
-                }
-                int departmentChosen = myScanner.nextInt();
-                myScanner.nextLine();
-                Department department = departments.get(departmentChosen-1);
                 outString=outString+String.format("In department %s, ",department.getName());
-                System.out.println("Select a program: ");
-                j=1;
-                for(Program i: department.getPrograms()){
-
-                    System.out.printf("%s) %s\n",""+j,i.getName());
-                    j++;
-                }
-                int programChosen = myScanner.nextInt();
-                myScanner.nextLine();
-                Program program = department.getPrograms().get(programChosen-1);
+                Program program = selectProgram(department);
                 outString=outString+String.format("In program %s, ",program.getName());
-                j=1;
+                int j=1;
                 for(Faculty i: program.getStaffList()){
                     outString=outString+String.format("%s)%s: %s %s\n",""+j,i.getRole(),i.getFirstName(),i.getLastName());
                     j++;
@@ -638,43 +559,17 @@ class gradingSystem {
     }
 
     private void removeDepartment(){
+        Department department=selectDepartment();
         Scanner myScanner = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Select a department: ");
-        int j = 1;
-        for(Department i:departments){
 
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int departmentChosen = myScanner.nextInt();
-        myScanner.nextLine();
-        Department department = departments.get(departmentChosen-1);
         myScanner.close();
         departments.remove(department);
     }
 
     private void removeProgram(){
-        Scanner myScanner = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Select a department to remove: ");
-        int j = 1;
-        for(Department i:departments){
-
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int departmentChosen = myScanner.nextInt();
-        myScanner.nextLine();
-        Department department = departments.get(departmentChosen-1);
-        System.out.println("Select a program to remove: ");
-        j=1;
-        for(Program i: department.getPrograms()){
-
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int programChosen = myScanner.nextInt();
-        myScanner.nextLine();
-        Program program = department.getPrograms().get(programChosen-1);
+        Department department=selectDepartment();
+        Scanner myScanner = new Scanner(System.in);
+        Program program = selectProgram(department);
         myScanner.close();
         department.removeProgram(program);
         programs.remove(program);
@@ -689,28 +584,11 @@ class gradingSystem {
                 System.out.println("First, make a program");
             }
             else{
-                Scanner myScanner = new Scanner(System.in);  // Create a Scanner object
-                System.out.println("Select a department: ");
-                int j = 1;
-                for(Department i:departments){
-                    System.out.printf("%s) %s\n",""+j,i.getName());
-                    j++;
-                }
-                int departmentChosen = myScanner.nextInt();
-                myScanner.nextLine();
-                Department department = departments.get(departmentChosen-1);
-                System.out.println("Select a program: ");
-                j = 1;
-                for(Program i: department.getPrograms()){
-
-                    System.out.printf("%s) %s\n",""+j,i.getName());
-                    j++;
-                }
-                int programChosen = myScanner.nextInt();
-                myScanner.nextLine();
-                Program program = department.getPrograms().get(programChosen-1);
+                Department department=selectDepartment();
+                Scanner myScanner = new Scanner(System.in);
+                Program program = selectProgram(department);
                 System.out.println("Select a module to remove: ");
-                j = 1;
+                int j = 1;
                 ArrayList<Module> moduleList = program.getModuleList();
                 for(Module i: moduleList){
 
@@ -758,29 +636,12 @@ class gradingSystem {
         double cutoff = myScanner.nextInt();
         myScanner.nextLine();
 
-        System.out.println("Select a department: ");
-        int j = 1;
-        for(Department i:departments){
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int departmentChosen = myScanner.nextInt();
-        myScanner.nextLine();
-        Department department = departments.get(departmentChosen-1);
+        Department department=selectDepartment();
 
-        System.out.println("Select a program: ");
-        j = 1;
-        for(Program i: department.getPrograms()){
-
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int programChosen = myScanner.nextInt();
-        myScanner.nextLine();
-        Program program = department.getPrograms().get(programChosen-1);
+        Program program = selectProgram(department);
 
         System.out.println("Select a module to run exam board on: ");
-        j = 1;
+        int j = 1;
         ArrayList<Module> moduleList = program.getModuleList();
         for(Module i: moduleList){
 
@@ -801,26 +662,9 @@ class gradingSystem {
         int cutoff = myScanner.nextInt();
         myScanner.nextLine();
 
-        System.out.println("Select a department: ");
-        int j = 1;
-        for(Department i:departments){
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int departmentChosen = myScanner.nextInt();
-        myScanner.nextLine();
-        Department department = departments.get(departmentChosen-1);
+        Department department=selectDepartment();
 
-        System.out.println("Select a program: ");
-        j = 1;
-        for(Program i: department.getPrograms()){
-
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int programChosen = myScanner.nextInt();
-        myScanner.nextLine();
-        Program program = department.getPrograms().get(programChosen-1);
+        Program program = selectProgram(department);
 
         System.out.println("Select a the year to run exam board on: ");
         int year = myScanner.nextInt();
@@ -840,26 +684,9 @@ class gradingSystem {
         System.out.print("Enter a minimum QCA to pass: ");
         int cutoff = myScanner.nextInt();
         myScanner.nextLine();
-        System.out.println("Select a department: ");
-        int j = 1;
-        for(Department i:departments){
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int departmentChosen = myScanner.nextInt();
-        myScanner.nextLine();
-        Department department = departments.get(departmentChosen-1);
+        Department department=selectDepartment();
 
-        System.out.println("Select a program: ");
-        j = 1;
-        for(Program i: department.getPrograms()){
-
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int programChosen = myScanner.nextInt();
-        myScanner.nextLine();
-        Program program = department.getPrograms().get(programChosen-1);
+        Program program = selectProgram(department);
 
         System.out.println("Select a the year to run exam board on: ");
         int year = myScanner.nextInt();
@@ -873,26 +700,9 @@ class gradingSystem {
         System.out.print("Enter a minimum QCA to pass: ");
         int cutoff = myScanner.nextInt();
         myScanner.nextLine();
-        System.out.println("Select a department: ");
-        int j = 1;
-        for(Department i:departments){
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int departmentChosen = myScanner.nextInt();
-        myScanner.nextLine();
-        Department department = departments.get(departmentChosen-1);
+        Department department=selectDepartment();
 
-        System.out.println("Select a program: ");
-        j = 1;
-        for(Program i: department.getPrograms()){
-
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int programChosen = myScanner.nextInt();
-        myScanner.nextLine();
-        Program program = department.getPrograms().get(programChosen-1);
+        Program program = selectProgram(department);
 
         myScanner.close();
         department.examBoardOverall(cutoff,program);
@@ -922,26 +732,9 @@ class gradingSystem {
             }
 
             if(found){
-                System.out.println("Select a department: ");
-                int j = 1;
-                for(Department i:departments){
-                    System.out.printf("%s) %s\n",""+j,i.getName());
-                    j++;
-                }
-                int departmentChosen = myScanner.nextInt();
-                myScanner.nextLine();
-                Department department = departments.get(departmentChosen-1);
+                Department department=selectDepartment();
 
-                System.out.println("Select a program: ");
-                j = 1;
-                for(Program i: department.getPrograms()){
-
-                    System.out.printf("%s) %s\n",""+j,i.getName());
-                    j++;
-                }
-                int programChosen = myScanner.nextInt();
-                myScanner.nextLine();
-                Program program = department.getPrograms().get(programChosen-1);
+                Program program = selectProgram(department);
 
                 System.out.println(program.getTranscript(student));
             }else{
@@ -959,25 +752,9 @@ class gradingSystem {
             myScanner.nextLine();
             Student student = students.get(choice-1);
 
-            System.out.println("Select a department: ");
-            j = 1;
-            for(Department i:departments){
-                System.out.printf("%s) %s\n",""+j,i.getName());
-                j++;
-            }
-            int departmentChosen = myScanner.nextInt();
-            myScanner.nextLine();
-            Department department = departments.get(departmentChosen-1);
+            Department department=selectDepartment();
 
-            System.out.println("Select a program: ");
-            j = 1;
-            for(Program i: department.getPrograms()){
-
-                System.out.printf("%s) %s\n",""+j,i.getName());
-                j++;
-            }
-            int programChosen = myScanner.nextInt();
-            Program program = department.getPrograms().get(programChosen-1);
+            Program program = selectProgram(department);
 
             System.out.println(program.getTranscript(student));
         }
@@ -985,30 +762,13 @@ class gradingSystem {
     }
 
     public void gradeStudent(){
+        Department department=selectDepartment();
         Scanner myScanner = new Scanner(System.in);
 
-        System.out.println("Select a department: ");
-        int j = 1;
-        for(Department i:departments){
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int departmentChosen = myScanner.nextInt();
-        myScanner.nextLine();
-        Department department = departments.get(departmentChosen-1);
-
-        System.out.println("Select a program: ");
-        j = 1;
-        for(Program i: department.getPrograms()){
-
-            System.out.printf("%s) %s\n",""+j,i.getName());
-            j++;
-        }
-        int programChosen = myScanner.nextInt();
-        Program program = department.getPrograms().get(programChosen-1);
+        Program program = selectProgram(department);
 
         System.out.println("Select a module: ");
-        j = 1;
+        int j = 1;
         ArrayList<Module> moduleList = program.getModuleList();
         for(Module i: moduleList){
 
@@ -1018,7 +778,7 @@ class gradingSystem {
         int moduleChosen = myScanner.nextInt();
         myScanner.nextLine();
         Module myModule = moduleList.get(moduleChosen-1);
-        
+
         System.out.println("Select a faculty member: ");
         j = 1;
         ArrayList<Faculty> staffList = myModule.getFacultyList();
@@ -1029,7 +789,7 @@ class gradingSystem {
         }
         int staffChosen = myScanner.nextInt();
         Faculty myStaff = staffList.get(staffChosen-1);
-        
+
         System.out.println("Select a student: ");
         j = 1;
         ArrayList<Student> studentList = myModule.getClassList();
@@ -1041,7 +801,7 @@ class gradingSystem {
         int studentChosen = myScanner.nextInt();
         myScanner.nextLine();
         Student myStudent = studentList.get(staffChosen-1);
-        
+
         System.out.print("What grade is the student getting?");
         String grade = myScanner.nextLine();
         myScanner.close();

@@ -21,8 +21,17 @@ public class Faculty extends Person
         super(firstName,lastName);
         this.teachingRole=teachingRole;
         gradeMap=new HashMap<String,Double>();
-        gradeMap.put("A1", 4.00);
-        gradeMap.put("A2", 3.60);//And so on. This is just an example. This will need to be filled out.
+        gradeMap.put("A1",4.00);
+        gradeMap.put("A2",3.60);//And so on. This is just an example. This will need to be filled out.
+        gradeMap.put("B1",3.20);
+        gradeMap.put("B2",3.00);
+        gradeMap.put("B3",2.80);
+        gradeMap.put("C1",2.60);
+        gradeMap.put("C2",2.40);
+        gradeMap.put("C3",2.00);
+        gradeMap.put("D1",1.60);
+        gradeMap.put("D2",1.20);
+        gradeMap.put("F" ,0.00);
     }
 
     @Override //overrides the addEntry method in Person. This will be the method used instead.

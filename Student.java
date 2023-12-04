@@ -15,7 +15,7 @@ import java.lang.System;
 public class Student extends Person
 {
     private int studentNum; //ie 22341234
-    private String repeatInfo="";
+    
     //private String studentStatus; //This is supposed to be in program. Oops.
     
     

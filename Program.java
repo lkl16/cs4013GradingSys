@@ -56,6 +56,7 @@ public class Program
             }
         }
     }
+    /*
     public void getStudents(){
         for(ArrayList<ArrayList<Module>> i: years){
             for(ArrayList<Module> j: i){
@@ -82,6 +83,7 @@ public class Program
             }
         }
     }
+    */
     public String getFullProgram(){
         String outString = String.format("%s, %s:\n",this.name,this.programCode);
         for(ArrayList<ArrayList<Module>> year: years){
@@ -96,13 +98,13 @@ public class Program
         }
         return outString;
     }
-
+    /*+
     public double getSemesterQCA(int semester,int ID){
         int year = (semester/2)+(semester%2);
         semester=semester%2;
         return getSemesterQCA(semester+1,year,ID);
     }
-
+    
     public double getSemesterQCA(int semester,int year,int ID){
         semester=semester-1;
         year=year-1;
@@ -119,7 +121,7 @@ public class Program
         }
         return QCA/counter;
     }
-
+    */
     public double getSemesterQCA(int semester,Student student){
         int year = (semester/2)+(semester%2);
         semester=semester%2;
@@ -152,12 +154,13 @@ public class Program
         double sem2QCA=getSemesterQCA(2,year,student);
         return yearQCACalc(sem1QCA,sem2QCA);
     }
-
+    /*
     public double getYearQCA(int year, int ID){
         double sem1QCA=getSemesterQCA(1,year,ID);
         double sem2QCA=getSemesterQCA(2,year,ID);
         return yearQCACalc(sem1QCA,sem2QCA);
     }
+    */
     private double yearQCACalc(double sem1QCA,double sem2QCA){
         int counter=0;
         double QCA=0.0;
@@ -176,7 +179,7 @@ public class Program
         QCA = QCA/counter;
          return QCA;
     }
-    
+    /*
     public double overallQCA(int ID){
         int counter=0;
         double QCA = 0.0;
@@ -193,6 +196,7 @@ public class Program
         }
         return QCA/(counter);
     }
+    */  
     public double overallQCA(Student student){
         int counter=0;
         double QCA = 0.0;
